@@ -4,7 +4,7 @@
 template <int>
 int f (int i)
 {
-  asm ("# %0 %1" : "+r" (i));
+  asm ("// %0 %1" : "+r" (i));
   return i;
 }
 

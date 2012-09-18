@@ -1,5 +1,5 @@
 /* { dg-do compile } */
-/* { dg-options "-freorder-blocks -ftracer} */
+/* { dg-options "-freorder-blocks -ftracer"} */
 
 struct A {
     virtual A *f();

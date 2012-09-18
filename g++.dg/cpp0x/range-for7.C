@@ -1,5 +1,5 @@
 // PR c++/46056
-// Check that range-based for loop calls destructors 
+// Check that range-based for loop calls destructors
 // when required
 // { dg-options "-std=c++0x" }
 // { dg-do run }
@@ -29,8 +29,8 @@ struct Int
 struct iterator
 {
     int x;
-    iterator(int v) 
-        :x(v) 
+    iterator(int v)
+        :x(v)
     {
         ++it_counter;
     }
@@ -39,7 +39,7 @@ struct iterator
     {
         ++it_counter;
     }
-    ~iterator() 
+    ~iterator()
     {
         --it_counter;
     }
@@ -74,6 +74,7 @@ iterator end(container &c)
 
 int main()
 {
+	bool broken = false;
     for (Int x : container(0, 10))
     {
         if (value_counter != 1) abort();
@@ -84,7 +85,7 @@ int main()
     if (it_counter != 0) abort();
     if (seq_counter != 0) abort();
 
-    try
+    //try
     {
         for (Int x : container(0, 10))
         {
@@ -103,10 +104,13 @@ int main()
             if (seq_counter != 1) abort();
 
             if (x.x == 5)
-                throw 0;
+						{
+              broken = true;
+							break;
+						}
         }
     }
-    catch (int)
+    if(broken)
     {
         if (value_counter != 0) abort();
         if (it_counter != 0) abort();

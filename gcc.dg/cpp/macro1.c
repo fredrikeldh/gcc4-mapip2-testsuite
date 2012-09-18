@@ -20,7 +20,7 @@ int B(int x)		{return x + 20;}
 int foo(int x)		{return x + 10;}
 int bar(int x, int y)	{return x + y;}
 int baz(int x, int y)	{return x + y;}
-int toupper(int x)	{return x + 32;}
+static int toupper(int x)	{return x + 32;}
 int M(int x)		{return x * 2;}
 
 int main (int argc, char *argv[])

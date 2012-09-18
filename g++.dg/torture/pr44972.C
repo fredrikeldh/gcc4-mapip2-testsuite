@@ -1,8 +1,8 @@
 /* { dg-do compile } */
 
-#include<cassert>
-#include<new>
-#include<utility>
+#include <cassert>
+#include <new>
+#include <utility>
 
 namespace boost {
 

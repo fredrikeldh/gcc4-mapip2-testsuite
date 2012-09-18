@@ -7,7 +7,7 @@
    function.  However, some platforms use all bits to encode a
    function pointer.  Such platforms use the lowest bit of the delta,
    that is shifted left by one bit.  */
-#if defined __MN10300__ || defined __SH5__ || defined __arm__ || defined __thumb__ || defined __mips__
+#if defined __MN10300__ || defined __SH5__ || defined __arm__ || defined __thumb__ || defined __mips__ || defined MAPIP
 #define ADJUST_PTRFN(func, virt) ((void (*)())(func))
 #define ADJUST_DELTA(delta, virt) (((delta) << 1) + !!(virt))
 #else
@@ -40,7 +40,7 @@ struct S
 // Because S does not have a VPTR, it will not be a primary base of T,
 // and will therefore end up at a nonzero offset.
 
-struct T : public S 
+struct T : public S
 {
   void f () {}
   virtual void g () {}
@@ -56,7 +56,7 @@ extern "C" void _ZN1T1hEv ();
 
 // This structure is a C representation of a pointer-to-member.
 
-struct ptrmemfunc 
+struct ptrmemfunc
 {
   void (*ptr) ();
   ptrdiff_t adj;
@@ -83,7 +83,7 @@ main ()
     return 1;
   if (__alignof__ (sp) != __alignof__ (ptrmemfunc))
     return 2;
-  
+
   // The NULL pointer-to-member should have a NULL first PTR field.
   x = 0;
   if (xp->ptr != 0)
@@ -91,7 +91,7 @@ main ()
   y = x;
   if (yp->ptr != 0)
     return 4;
-  
+
   // A non-virtual function should have a pointer to the function.
   // There should be no adjustment for the `T' version, and an
   // appropriate adjustment for the `S' version.
@@ -139,7 +139,7 @@ main ()
 
 #else /* !(defined (__GXX_ABI_VERSION) && __GXX_ABI_VERSION >= 100) */
 
-int main () 
+int main ()
 {
 }
 
