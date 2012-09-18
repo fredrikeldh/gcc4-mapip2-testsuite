@@ -1,5 +1,5 @@
 // { dg-do run  }
-#include<iostream>
+#include <iostream>
 
 int main() {
   try {

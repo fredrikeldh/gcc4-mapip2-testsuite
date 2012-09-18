@@ -8,7 +8,7 @@
 
 void* p;
 
-void* operator new[](size_t s) throw (std::bad_alloc)
+void* operator new[](size_t s) throw ()
 {
   // Record the base of the last array allocated.
   p = malloc (s);
@@ -37,7 +37,7 @@ void check_cookie (int i)
 {
   void* a = new T[11];
   size_t x;
-  
+
   // Compute the cookie location manually.
 #ifdef __ARM_EABI__
   x = 8;
@@ -67,7 +67,7 @@ void check_placement_cookie (int i)
   p = malloc (sizeof (T) * 11 + 100);
   void* a = new (p) T[11];
   size_t x;
-  
+
   // Compute the cookie location manually.
 #ifdef __ARM_EABI__
   x = 8;
@@ -101,7 +101,7 @@ struct Z { ~Z () {} };
 // Likewise, but this class needs a bigger cookie so that the array
 // elements are correctly aligned.
 struct Z2 { ~Z2 () {} long double d; };
-  
+
 struct W1 { void operator delete[] (void *, size_t) {} };
 struct W2 { void operator delete[] (void *) {}
             void operator delete[] (void *, size_t) {} };
@@ -109,11 +109,11 @@ struct W3 { void operator delete[] (void *, size_t) {}
             void operator delete[] (void *) {} };
 struct W4 : public W1 {};
 
-struct V { void *operator new[] (size_t s, void *p) 
+struct V { void *operator new[] (size_t s, void *p)
              { return p; }
            ~V () {}
          };
-   
+
 int main ()
 {
   // There should be no cookies for types with trivial destructors.
@@ -130,7 +130,7 @@ int main ()
   // There should be a cookie when using a non-trivial destructor.
   check_cookie<Z> (7);
   check_cookie<Z2> (8);
-  
+
   // There should be a cookie when using the two-argument array delete
   // operator.
   check_cookie<W1> (9);
@@ -145,7 +145,7 @@ int main ()
 
 #else /* !(defined (__GXX_ABI_VERSION) && __GXX_ABI_VERSION >= 100) */
 
-int main () 
+int main ()
 {
 }
 

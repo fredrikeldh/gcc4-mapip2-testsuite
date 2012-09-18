@@ -1,6 +1,6 @@
 // { dg-do assemble  }
-#include<iostream>
-#include<cstddef>
+#include <iostream>
+#include <cstddef>
 
 struct A {
   A() {

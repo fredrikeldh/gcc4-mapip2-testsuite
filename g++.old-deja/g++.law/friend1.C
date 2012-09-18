@@ -9,7 +9,7 @@
 #include <stddef.h>
 #include <new>
 struct Foo {
-  friend void* operator new(size_t) throw (std::bad_alloc);
+  friend void* operator new(size_t) throw ();
   friend void operator delete(void*) throw ();
   Foo();
   ~Foo();

@@ -5,14 +5,14 @@
 #include <new>
 
 bool abort_new;
-void *operator new[](size_t bytes) throw (std::bad_alloc) { 
+void *operator new[](size_t bytes) throw () {
   if (abort_new)
-    abort(); 
+    abort();
   return operator new (bytes);
 }
 
 
-struct X {};  
+struct X {};
 int main () {
   // Do not abort until main is running in case startup code uses
   // operator new[].
